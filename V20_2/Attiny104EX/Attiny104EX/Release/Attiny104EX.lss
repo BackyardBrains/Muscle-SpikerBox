@@ -1,0 +1,113 @@
+
+Attiny104EX.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000090  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800040  00800040  000000e4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000000e4  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000114  2**2
+                  CONTENTS, READONLY
+  4 .debug_info   00000401  00000000  00000000  00000150  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000003c7  00000000  00000000  00000551  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   000000f7  00000000  00000000  00000918  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_str    00000166  00000000  00000000  00000a0f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0f c0       	rjmp	.+30     	; 0x20 <__ctors_end>
+   2:	16 c0       	rjmp	.+44     	; 0x30 <__bad_interrupt>
+   4:	15 c0       	rjmp	.+42     	; 0x30 <__bad_interrupt>
+   6:	14 c0       	rjmp	.+40     	; 0x30 <__bad_interrupt>
+   8:	13 c0       	rjmp	.+38     	; 0x30 <__bad_interrupt>
+   a:	12 c0       	rjmp	.+36     	; 0x30 <__bad_interrupt>
+   c:	11 c0       	rjmp	.+34     	; 0x30 <__bad_interrupt>
+   e:	10 c0       	rjmp	.+32     	; 0x30 <__bad_interrupt>
+  10:	0f c0       	rjmp	.+30     	; 0x30 <__bad_interrupt>
+  12:	0e c0       	rjmp	.+28     	; 0x30 <__bad_interrupt>
+  14:	0d c0       	rjmp	.+26     	; 0x30 <__bad_interrupt>
+  16:	0c c0       	rjmp	.+24     	; 0x30 <__bad_interrupt>
+  18:	0b c0       	rjmp	.+22     	; 0x30 <__bad_interrupt>
+  1a:	0a c0       	rjmp	.+20     	; 0x30 <__bad_interrupt>
+  1c:	09 c0       	rjmp	.+18     	; 0x30 <__bad_interrupt>
+  1e:	08 c0       	rjmp	.+16     	; 0x30 <__bad_interrupt>
+
+00000020 <__ctors_end>:
+  20:	11 27       	eor	r17, r17
+  22:	1f bf       	out	0x3f, r17	; 63
+  24:	cf e5       	ldi	r28, 0x5F	; 95
+  26:	d0 e0       	ldi	r29, 0x00	; 0
+  28:	de bf       	out	0x3e, r29	; 62
+  2a:	cd bf       	out	0x3d, r28	; 61
+  2c:	18 d0       	rcall	.+48     	; 0x5e <main>
+  2e:	2e c0       	rjmp	.+92     	; 0x8c <_exit>
+
+00000030 <__bad_interrupt>:
+  30:	e7 cf       	rjmp	.-50     	; 0x0 <__vectors>
+
+00000032 <_Z10USART_Initj>:
+  32:	48 ed       	ldi	r20, 0xD8	; 216
+  34:	4c bf       	out	0x3c, r20	; 60
+  36:	16 bf       	out	0x36, r17	; 54
+  38:	9a b9       	out	0x0a, r25	; 10
+  3a:	89 b9       	out	0x09, r24	; 9
+  3c:	42 e0       	ldi	r20, 0x02	; 2
+  3e:	4e b9       	out	0x0e, r20	; 14
+  40:	48 e1       	ldi	r20, 0x18	; 24
+  42:	4d b9       	out	0x0d, r20	; 13
+  44:	4e e0       	ldi	r20, 0x0E	; 14
+  46:	4c b9       	out	0x0c, r20	; 12
+  48:	08 95       	ret
+
+0000004a <_Z14USART_Transmith>:
+  4a:	4e b1       	in	r20, 0x0e	; 14
+  4c:	45 ff       	sbrs	r20, 5
+  4e:	fd cf       	rjmp	.-6      	; 0x4a <_Z14USART_Transmith>
+  50:	88 b9       	out	0x08, r24	; 8
+  52:	08 95       	ret
+
+00000054 <_Z8ADC_Initv>:
+  54:	42 e0       	ldi	r20, 0x02	; 2
+  56:	4b bb       	out	0x1b, r20	; 27
+  58:	44 e8       	ldi	r20, 0x84	; 132
+  5a:	4d bb       	out	0x1d, r20	; 29
+  5c:	08 95       	ret
+
+0000005e <main>:
+  5e:	84 e0       	ldi	r24, 0x04	; 4
+  60:	90 e0       	ldi	r25, 0x00	; 0
+  62:	e7 df       	rcall	.-50     	; 0x32 <_Z10USART_Initj>
+  64:	f7 df       	rcall	.-18     	; 0x54 <_Z8ADC_Initv>
+  66:	c0 e0       	ldi	r28, 0x00	; 0
+  68:	48 e2       	ldi	r20, 0x28	; 40
+  6a:	52 e0       	ldi	r21, 0x02	; 2
+  6c:	41 50       	subi	r20, 0x01	; 1
+  6e:	50 40       	sbci	r21, 0x00	; 0
+  70:	e9 f7       	brne	.-6      	; 0x6c <__stack+0xd>
+  72:	00 c0       	rjmp	.+0      	; 0x74 <__stack+0x15>
+  74:	00 00       	nop
+  76:	cf 5f       	subi	r28, 0xFF	; 255
+  78:	8c 2f       	mov	r24, r28
+  7a:	88 1f       	adc	r24, r24
+  7c:	88 27       	eor	r24, r24
+  7e:	88 1f       	adc	r24, r24
+  80:	80 68       	ori	r24, 0x80	; 128
+  82:	e3 df       	rcall	.-58     	; 0x4a <_Z14USART_Transmith>
+  84:	8c 2f       	mov	r24, r28
+  86:	8f 77       	andi	r24, 0x7F	; 127
+  88:	e0 df       	rcall	.-64     	; 0x4a <_Z14USART_Transmith>
+  8a:	ee cf       	rjmp	.-36     	; 0x68 <__stack+0x9>
+
+0000008c <_exit>:
+  8c:	f8 94       	cli
+
+0000008e <__stop_program>:
+  8e:	ff cf       	rjmp	.-2      	; 0x8e <__stop_program>

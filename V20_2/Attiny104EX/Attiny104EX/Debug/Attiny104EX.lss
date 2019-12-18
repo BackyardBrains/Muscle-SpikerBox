@@ -1,0 +1,324 @@
+
+Attiny104EX.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000170  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800040  00800040  000001e4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800040  00800040  000001e4  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000001e4  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000214  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000050  00000000  00000000  00000250  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000007fa  00000000  00000000  000002a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000500  00000000  00000000  00000a9a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000037b  00000000  00000000  00000f9a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000a4  00000000  00000000  00001318  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000040b  00000000  00000000  000013bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000010e  00000000  00000000  000017c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000040  00000000  00000000  000018d5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0f c0       	rjmp	.+30     	; 0x20 <__ctors_end>
+   2:	1e c0       	rjmp	.+60     	; 0x40 <__bad_interrupt>
+   4:	1d c0       	rjmp	.+58     	; 0x40 <__bad_interrupt>
+   6:	1c c0       	rjmp	.+56     	; 0x40 <__bad_interrupt>
+   8:	1b c0       	rjmp	.+54     	; 0x40 <__bad_interrupt>
+   a:	1a c0       	rjmp	.+52     	; 0x40 <__bad_interrupt>
+   c:	19 c0       	rjmp	.+50     	; 0x40 <__bad_interrupt>
+   e:	18 c0       	rjmp	.+48     	; 0x40 <__bad_interrupt>
+  10:	17 c0       	rjmp	.+46     	; 0x40 <__bad_interrupt>
+  12:	16 c0       	rjmp	.+44     	; 0x40 <__bad_interrupt>
+  14:	15 c0       	rjmp	.+42     	; 0x40 <__bad_interrupt>
+  16:	14 c0       	rjmp	.+40     	; 0x40 <__bad_interrupt>
+  18:	13 c0       	rjmp	.+38     	; 0x40 <__bad_interrupt>
+  1a:	23 c0       	rjmp	.+70     	; 0x62 <__vector_13>
+  1c:	11 c0       	rjmp	.+34     	; 0x40 <__bad_interrupt>
+  1e:	10 c0       	rjmp	.+32     	; 0x40 <__bad_interrupt>
+
+00000020 <__ctors_end>:
+  20:	11 27       	eor	r17, r17
+  22:	1f bf       	out	0x3f, r17	; 63
+  24:	cf e5       	ldi	r28, 0x5F	; 95
+  26:	d0 e0       	ldi	r29, 0x00	; 0
+  28:	de bf       	out	0x3e, r29	; 62
+  2a:	cd bf       	out	0x3d, r28	; 61
+
+0000002c <__do_clear_bss>:
+  2c:	20 e0       	ldi	r18, 0x00	; 0
+  2e:	a0 e4       	ldi	r26, 0x40	; 64
+  30:	b0 e0       	ldi	r27, 0x00	; 0
+  32:	01 c0       	rjmp	.+2      	; 0x36 <.do_clear_bss_start>
+
+00000034 <.do_clear_bss_loop>:
+  34:	1d 93       	st	X+, r17
+
+00000036 <.do_clear_bss_start>:
+  36:	a1 34       	cpi	r26, 0x41	; 65
+  38:	b2 07       	cpc	r27, r18
+  3a:	e1 f7       	brne	.-8      	; 0x34 <.do_clear_bss_loop>
+  3c:	39 d0       	rcall	.+114    	; 0xb0 <main>
+  3e:	96 c0       	rjmp	.+300    	; 0x16c <_exit>
+
+00000040 <__bad_interrupt>:
+  40:	df cf       	rjmp	.-66     	; 0x0 <__vectors>
+
+00000042 <_Z10USART_Initj>:
+  return UDR;                       // Return received data.
+}
+
+void USART_Flush( void ){
+  while ( UCSRA & (1<<RXC) ){};
+}
+  42:	58 ed       	ldi	r21, 0xD8	; 216
+  44:	5c bf       	out	0x3c, r21	; 60
+  46:	42 e0       	ldi	r20, 0x02	; 2
+  48:	47 bf       	out	0x37, r20	; 55
+  4a:	5c bf       	out	0x3c, r21	; 60
+  4c:	16 bf       	out	0x36, r17	; 54
+  4e:	1a b9       	out	0x0a, r17	; 10
+  50:	55 e0       	ldi	r21, 0x05	; 5
+  52:	59 b9       	out	0x09, r21	; 9
+  54:	4e b9       	out	0x0e, r20	; 14
+  56:	48 e9       	ldi	r20, 0x98	; 152
+  58:	4d b9       	out	0x0d, r20	; 13
+  5a:	46 e0       	ldi	r20, 0x06	; 6
+  5c:	4c b9       	out	0x0c, r20	; 12
+  5e:	78 94       	sei
+  60:	08 95       	ret
+
+00000062 <__vector_13>:
+  62:	1f 93       	push	r17
+  64:	0f 93       	push	r16
+  66:	0f b7       	in	r16, 0x3f	; 63
+  68:	0f 93       	push	r16
+  6a:	10 e0       	ldi	r17, 0x00	; 0
+  6c:	4f 93       	push	r20
+  6e:	5f 93       	push	r21
+  70:	ef 93       	push	r30
+  72:	ff 93       	push	r31
+  74:	e0 e4       	ldi	r30, 0x40	; 64
+  76:	f0 e0       	ldi	r31, 0x00	; 0
+  78:	51 e0       	ldi	r21, 0x01	; 1
+  7a:	4e b1       	in	r20, 0x0e	; 14
+  7c:	44 23       	and	r20, r20
+  7e:	2c f4       	brge	.+10     	; 0x8a <__vector_13+0x28>
+  80:	48 b1       	in	r20, 0x08	; 8
+  82:	42 36       	cpi	r20, 0x62	; 98
+  84:	d1 f7       	brne	.-12     	; 0x7a <__vector_13+0x18>
+  86:	50 83       	st	Z, r21
+  88:	f8 cf       	rjmp	.-16     	; 0x7a <__vector_13+0x18>
+  8a:	ff 91       	pop	r31
+  8c:	ef 91       	pop	r30
+  8e:	5f 91       	pop	r21
+  90:	4f 91       	pop	r20
+  92:	0f 91       	pop	r16
+  94:	0f bf       	out	0x3f, r16	; 63
+  96:	0f 91       	pop	r16
+  98:	1f 91       	pop	r17
+  9a:	18 95       	reti
+
+0000009c <_Z14USART_Transmith>:
+  9c:	4e b1       	in	r20, 0x0e	; 14
+  9e:	45 ff       	sbrs	r20, 5
+  a0:	fd cf       	rjmp	.-6      	; 0x9c <_Z14USART_Transmith>
+  a2:	88 b9       	out	0x08, r24	; 8
+  a4:	08 95       	ret
+
+000000a6 <_Z8ADC_Initv>:
+  ADMUX =
+            (0 << REFS1) |     // VCC as V. reference, bit 1
+            (0 << REFS0) |     // VCC as V. reference, bit 0
+            (0 << MUX2)  |     // use ADC3 (PA6), MUX bit 2
+            (1 << MUX1)  |     // use ADC3 (PA6), MUX bit 1
+            (0 << MUX0);       // use ADC3 (PA6), MUX bit 0
+  a6:	42 e0       	ldi	r20, 0x02	; 2
+  a8:	4b bb       	out	0x1b, r20	; 27
+  //Set prescaler 
+  ADCSRA = 
+            (1 << ADEN)  |     // Enable ADC 
+            (1 << ADPS2) |     // Set prescaler= 16 b100 = 16; b110 = 64
+            (0 << ADPS1) |     // Set prescaler=16 
+            (0 << ADPS0);      // Set prescaler=16 
+  aa:	44 e8       	ldi	r20, 0x84	; 132
+  ac:	4d bb       	out	0x1d, r20	; 29
+  ae:	08 95       	ret
+
+000000b0 <main>:
+}
+
+//-----------------------------------------------------------------------------
+
+int main( void ){
+  USART_Init(MYUBRR);
+  b0:	84 e0       	ldi	r24, 0x04	; 4
+  b2:	90 e0       	ldi	r25, 0x00	; 0
+  b4:	c6 df       	rcall	.-116    	; 0x42 <_Z10USART_Initj>
+  ADC_Init();
+  b6:	f7 df       	rcall	.-18     	; 0xa6 <_Z8ADC_Initv>
+  uint16_t data2;
+  uint16_t data3;
+  uint8_t digit1; 
+  uint8_t digit2; 
+
+  DDRA |= (1 << PINA6);
+  b8:	0e 9a       	sbi	0x01, 6	; 1
+  while(1){
+	if(sendMessage)
+  ba:	e0 e4       	ldi	r30, 0x40	; 64
+  bc:	f0 e0       	ldi	r31, 0x00	; 0
+  be:	40 81       	ld	r20, Z
+  c0:	44 23       	and	r20, r20
+  c2:	a1 f1       	breq	.+104    	; 0x12c <__DATA_REGION_LENGTH__+0x2c>
+	{
+
+		sendMessage = 0;
+  c4:	10 83       	st	Z, r17
+		USART_Transmit( 255 ); 
+  c6:	8f ef       	ldi	r24, 0xFF	; 255
+  c8:	e9 df       	rcall	.-46     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 255 ); 
+  ca:	8f ef       	ldi	r24, 0xFF	; 255
+  cc:	e7 df       	rcall	.-50     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 1 ); 
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+  d0:	e5 df       	rcall	.-54     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 1 ); 
+  d2:	81 e0       	ldi	r24, 0x01	; 1
+  d4:	e3 df       	rcall	.-58     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 128 ); 
+  d6:	80 e8       	ldi	r24, 0x80	; 128
+  d8:	e1 df       	rcall	.-62     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 255 ); 
+  da:	8f ef       	ldi	r24, 0xFF	; 255
+  dc:	df df       	rcall	.-66     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'H' ); 
+  de:	88 e4       	ldi	r24, 0x48	; 72
+  e0:	dd df       	rcall	.-70     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'W' ); 
+  e2:	87 e5       	ldi	r24, 0x57	; 87
+  e4:	db df       	rcall	.-74     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'T' ); 
+  e6:	84 e5       	ldi	r24, 0x54	; 84
+  e8:	d9 df       	rcall	.-78     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( ':' ); 
+  ea:	8a e3       	ldi	r24, 0x3A	; 58
+  ec:	d7 df       	rcall	.-82     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'M' ); 
+  ee:	8d e4       	ldi	r24, 0x4D	; 77
+  f0:	d5 df       	rcall	.-86     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'U' ); 
+  f2:	85 e5       	ldi	r24, 0x55	; 85
+  f4:	d3 df       	rcall	.-90     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'S' ); 
+  f6:	83 e5       	ldi	r24, 0x53	; 83
+  f8:	d1 df       	rcall	.-94     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'C' ); 
+  fa:	83 e4       	ldi	r24, 0x43	; 67
+  fc:	cf df       	rcall	.-98     	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'L' ); 
+  fe:	8c e4       	ldi	r24, 0x4C	; 76
+ 100:	cd df       	rcall	.-102    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'E' ); 
+ 102:	85 e4       	ldi	r24, 0x45	; 69
+ 104:	cb df       	rcall	.-106    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'S' ); 
+ 106:	83 e5       	ldi	r24, 0x53	; 83
+ 108:	c9 df       	rcall	.-110    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 'S' ); 
+ 10a:	83 e5       	ldi	r24, 0x53	; 83
+ 10c:	c7 df       	rcall	.-114    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( ';' ); 
+ 10e:	8b e3       	ldi	r24, 0x3B	; 59
+ 110:	c5 df       	rcall	.-118    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 255 ); 
+ 112:	8f ef       	ldi	r24, 0xFF	; 255
+ 114:	c3 df       	rcall	.-122    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 255 ); 
+ 116:	8f ef       	ldi	r24, 0xFF	; 255
+ 118:	c1 df       	rcall	.-126    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 1 ); 
+ 11a:	81 e0       	ldi	r24, 0x01	; 1
+ 11c:	bf df       	rcall	.-130    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 1 ); 
+ 11e:	81 e0       	ldi	r24, 0x01	; 1
+ 120:	bd df       	rcall	.-134    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 129 ); 
+ 122:	81 e8       	ldi	r24, 0x81	; 129
+ 124:	bb df       	rcall	.-138    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( 255 ); 
+ 126:	8f ef       	ldi	r24, 0xFF	; 255
+ 128:	b9 df       	rcall	.-142    	; 0x9c <_Z14USART_Transmith>
+ 12a:	c7 cf       	rjmp	.-114    	; 0xba <main+0xa>
+
+	}
+	else
+	{
+		PORTA |= (0b01000000);
+ 12c:	16 9a       	sbi	0x02, 6	; 2
+		ADCSRA |= (1 << ADSC);          // start ADC measurement
+ 12e:	ee 9a       	sbi	0x1d, 6	; 29
+		while (ADCSRA & (1 << ADSC) );  // wait till conversion complete 
+ 130:	ee 99       	sbic	0x1d, 6	; 29
+ 132:	fe cf       	rjmp	.-4      	; 0x130 <__DATA_REGION_LENGTH__+0x30>
+		
+		
+		data1= ADCL;
+ 134:	49 b3       	in	r20, 0x19	; 25
+		data2 = ADCH;
+ 136:	8a b3       	in	r24, 0x1a	; 26
+		data3 = data1+(data2<<8);
+ 138:	90 e0       	ldi	r25, 0x00	; 0
+ 13a:	98 2f       	mov	r25, r24
+ 13c:	88 27       	eor	r24, r24
+ 13e:	c8 2f       	mov	r28, r24
+ 140:	d9 2f       	mov	r29, r25
+ 142:	c4 0f       	add	r28, r20
+ 144:	d1 1f       	adc	r29, r17
+		digit2 = data3 & 0x7F; 
+		digit1 = (data3>>7)|0x80; 
+		USART_Transmit( digit1 );    // Transmit units
+ 146:	8c 2f       	mov	r24, r28
+ 148:	9d 2f       	mov	r25, r29
+ 14a:	88 0f       	add	r24, r24
+ 14c:	89 2f       	mov	r24, r25
+ 14e:	88 1f       	adc	r24, r24
+ 150:	99 0b       	sbc	r25, r25
+ 152:	91 95       	neg	r25
+ 154:	80 68       	ori	r24, 0x80	; 128
+ 156:	a2 df       	rcall	.-188    	; 0x9c <_Z14USART_Transmith>
+		USART_Transmit( digit2 ); 
+ 158:	8c 2f       	mov	r24, r28
+ 15a:	8f 77       	andi	r24, 0x7F	; 127
+ 15c:	9f df       	rcall	.-194    	; 0x9c <_Z14USART_Transmith>
+		PORTA &= (0b10111111);
+ 15e:	16 98       	cbi	0x02, 6	; 2
+ 160:	48 ec       	ldi	r20, 0xC8	; 200
+ 162:	50 e0       	ldi	r21, 0x00	; 0
+ 164:	41 50       	subi	r20, 0x01	; 1
+ 166:	51 0b       	sbc	r21, r17
+		
+		data3 = 0;
+		while(data3<200)
+ 168:	e9 f7       	brne	.-6      	; 0x164 <__DATA_REGION_LENGTH__+0x64>
+ 16a:	a7 cf       	rjmp	.-178    	; 0xba <main+0xa>
+
+0000016c <_exit>:
+ 16c:	f8 94       	cli
+
+0000016e <__stop_program>:
+ 16e:	ff cf       	rjmp	.-2      	; 0x16e <__stop_program>

@@ -98,7 +98,7 @@ int main( void ){
   while(1){
 	if(sendMessage)
 	{
-		//send message for board
+		//send message for board MUSCUSB1
 		sendMessage = 0;
 		USART_Transmit( 255 ); 
 		USART_Transmit( 255 ); 
@@ -114,10 +114,10 @@ int main( void ){
 		USART_Transmit( 'U' ); 
 		USART_Transmit( 'S' ); 
 		USART_Transmit( 'C' ); 
-		USART_Transmit( 'L' ); 
-		USART_Transmit( 'E' ); 
+		USART_Transmit( 'U' ); 
 		USART_Transmit( 'S' ); 
-		USART_Transmit( 'S' ); 
+		USART_Transmit( 'B' ); 
+		USART_Transmit( '1' ); 
 		USART_Transmit( ';' ); 
 		USART_Transmit( 255 ); 
 		USART_Transmit( 255 ); 
